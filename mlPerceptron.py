@@ -65,7 +65,7 @@ class MPL:
 #Propagação do erro para a primeira camada
     def backPropagateFirstLayer(self, output_deltas, expected):
     	for i in range(self.output):
-    		error = -1*(expected[i] - self.valuesOutput[i])
+    		error = -(expected[i] - self.valuesOutput[i])
     		output_deltas[i] = derivativeSigmoid(self.valuesOutput[i])*error
 
 #Propagação do erro para a segunda camada
@@ -122,7 +122,7 @@ class MPL:
 
     #Treina a rede
     def train(self, examples):
-    	iterations=50000
+    	iterations=10000
     	ratio=0.5
 
     	for i in range(iterations):
@@ -135,21 +135,16 @@ class MPL:
 
 def start():
 	trainMatrix = [
-	    [[0, 0, 0], [0]],
-		[[0, 0, 1], [1]],
-	    [[0, 1, 1], [0]],
-	    [[0, 1, 0], [1]],
-	    [[1, 1, 1], [1]],
-	    [[1, 1, 0], [0]],
-	    [[1, 0, 0], [1]],
-	    [[1, 0, 1], [0]],
+        [[1, 1], [1]],
+		[[0, 1], [0]],
+        [[0, 0], [1]] 
 	]
 
 	testMatrix = [
-	     [[0, 1, 1], [0]]  
+        [[1, 0], [0]]
 	]
 
-	mpl = MPL(3,3,1)
+	mpl = MPL(2,2,1)
 	mpl.train(trainMatrix)
 	mpl.test(testMatrix)
 
